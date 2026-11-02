@@ -12,10 +12,12 @@ private:
     bool m_gefaehrdet;
     bool m_raubtier;
     int m_anzahl=0;
+protected:
+    virtual int zeichen;
 
 
 public:
-    Tier();
+    Tier(const string &bezeichung, bool gefaehrdet, bool raubtier);
     virtual void TiereAnzeigen();
     virtual ~Tier()=default;
     virtual void serialize(ofstream& ausgabe)=0;

@@ -6,7 +6,7 @@
 class Saeugetier : public Tier
 {
 public:
-    Saeugetier();
+    Saeugetier(bool rudelTier, int tragzeit, double durschnittsgewicht, const string &bezeichung, bool gefaehrdet, bool raubtier);
     void TiereAnzeigen();
     void serialize(ofstream& ausgabe);
     void deserialize(ifstream&);

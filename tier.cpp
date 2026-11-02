@@ -7,44 +7,13 @@ int Tier::getanzahl() const
     return m_anzahl;
 }
 
-Tier::Tier()
-{
-    bool gefaehrdet=false;
-    int rb,gf;
-    cout<<"Bezeichnung fuer das Tier: "<<endl;
-    cin>>m_bezeichung;
-    do{
-    cout<<"gefaehrdet?"<<endl;
-    cout<<"1. ja"<<endl;
-    cout<<"2. nein"<<endl;
-    cin>>gf;
-    if(gf==1){
-        m_gefaehrdet=true;
-        gefaehrdet=true;
-    }
-    else if(gf==2){
-        m_gefaehrdet= false;
-        gefaehrdet=true;
-    } else{
-        cout<<"Waehlen sie ein passendes Nummer!"<<endl;
-    }
-    } while(gefaehrdet==false);
-
-    cout<<"raubtier?"<<endl;
-    cout<<"1. ja"<<endl;
-    cout<<"2. nein"<<endl;
-    cin>>rb;
-    if(rb==1){
-        m_raubtier=true;
-    }
-    else if(rb==2){
-        m_raubtier= false;
-    } else{
-        cout<<"Waehlen sie ein passendes Nummer!"<<endl;
-    }
+Tier::Tier(const string &bezeichung, bool gefaehrdet, bool raubtier) : m_bezeichung(bezeichung),
+    m_gefaehrdet(gefaehrdet),
+    m_raubtier(raubtier)
+{}
 
 
-}
+
 
 void Tier:: TiereAnzeigen()
 {
@@ -63,8 +32,14 @@ void Tier:: TiereAnzeigen()
 
 void Tier::deserialize(ifstream&eingabe)
 {
-
-
+    if(!eingabe){
+        cerr<<"Fehlermeldung!"<<endl;
+    }
+    else{
+        eingabe.write((char*)&m_bezeichung, sizeof(m_bezeichung));
+        eingabe.write((char*)&m_gefaehrdet, sizeof(m_gefaehrdet));
+        eingabe.write((char*)&m_raubtier, sizeof(m_raubtier));
+    }
 
 }
 
@@ -81,6 +56,7 @@ void Tier::serialize(ofstream& ausgabe)
         ausgabe.write((char*)&m_raubtier, sizeof(m_raubtier));
     }
 }
+
 
 
 
