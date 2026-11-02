@@ -6,7 +6,7 @@
 class Reptil : public Tier
 {
 public:
-    Reptil(bool giftig, double optimaleTemperatur, bool wechselwarm, const string &bezeichung, bool gefaehrdet, bool raubtier);
+    Reptil(bool giftig, double optimaleTemperatur, bool wechselwarm, const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen);
     void TiereAnzeigen();
     void serialize(ofstream& ausgabe);
     void deserialize(ifstream&);

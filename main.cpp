@@ -11,6 +11,7 @@ int main()
     bool end=false;
     string m_bezeichung;
     bool m_gefaehrdet,m_raubtier;
+    int m_anzahl,m_zeichen;
 
     vector<Tier*> Tierliste;
 
@@ -38,6 +39,8 @@ int main()
             int rb,gf;
             cout<<"Bezeichnung fuer das Tier: "<<endl;
             cin>>m_bezeichung;
+            cout<<"Anzahl der Tiere: "<<endl;
+            cin>>m_anzahl;
             do{
                 cout<<"gefaehrdet?"<<endl;
                 cout<<"1. ja"<<endl;
@@ -71,6 +74,7 @@ int main()
 
             switch(animalnummer){
             case 1:{
+                m_zeichen=1;
                 bool m_rudelTier;
                 int m_tragzeit;
                 double m_durchschnittsgewicht;
@@ -99,13 +103,14 @@ int main()
                 cin>>m_durchschnittsgewicht;
 
 
-                Tier* tier= new Saeugetier(m_rudelTier,m_tragzeit,m_durchschnittsgewicht,m_bezeichung,m_gefaehrdet,m_raubtier);
+                Tier* tier= new Saeugetier(m_rudelTier,m_tragzeit,m_durchschnittsgewicht,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
 
             }
             case 2:{
+                m_zeichen=2;
                 bool m_zugvogel;
                 double m_flugreichweite,m_fluegelspannweite;
 
@@ -133,13 +138,14 @@ int main()
                 cin>>m_fluegelspannweite;
 
 
-                Tier* tier=new Vogel(m_zugvogel,m_flugreichweite,m_fluegelspannweite,m_bezeichung,m_gefaehrdet,m_raubtier);
+                Tier* tier=new Vogel(m_zugvogel,m_flugreichweite,m_fluegelspannweite,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
 
             }
             case 3:{
+                m_zeichen=3;
                 bool m_giftig,m_wechselwarm;
                 double m_optimaleTemperatur;
 
@@ -182,7 +188,7 @@ int main()
                 } while(wechselwarm==false);
                 cout<<"wie viel ist die Optimaletemperatur? (in Celcius) "<<endl;
                 cin>>m_optimaleTemperatur;
-                Tier* tier= new Reptil(m_giftig,m_optimaleTemperatur,m_wechselwarm,m_bezeichung,m_gefaehrdet,m_raubtier);
+                Tier* tier= new Reptil(m_giftig,m_optimaleTemperatur,m_wechselwarm,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
@@ -215,57 +221,70 @@ int main()
                 cout<<"Es ist leer"<<endl;
             } else{
                 string dateiname;
-                cout<<"Wie wird die Datei heissen? "<<endl;
+                cout<<"Wie wird die Datei genannt werden? "<<endl;
                 cin>>dateiname;
                 ofstream ausgabe;
                 ausgabe.open(dateiname,ios::out|ios::binary);
                 for(auto a:Tierliste){
                     a->serialize(ausgabe);
                 }
+                ausgabe.close();
+                cout<<"Datei erfolgreich gespeichert!"<<endl;
+                break;
 
             }
-            cout<<"Datei erfolgreich gespeichert!"<<endl;
-            break;
+
 
         }
         case 4:{
-
-            long a;
-            double b;
-            while (ergebnis.read((char*)&a, sizeof(a)) &&
-                   ergebnis.read((char*)&b, sizeof(b))) {
-                cout << a << "*" << b << " = " << a * b << endl;
-            }
-            ergebnis.close();
-            if(Tierliste.empty()){
-                cout<<"Es ist leer!"<<endl;
-
-            }else {
                 string dateiname;
+            cout<<"Dateiname: "<<endl;
                 cin>>dateiname;
                 ifstream eingabe;
                 eingabe.open(dateiname,ios::in|ios::binary);
-                for(auto a: Tierliste){
-                    a->deserialize(eingabe);
-                    Tier* tier;
-                    tier->
-
-                    Tierliste.push_back(a);
+                if(!eingabe){
+                    cerr<<"Existiert nicht!"<<endl;
+                    break;
+                }
+                else{
+                int zeichen;
+                while(eingabe.read((char*)&zeichen, sizeof(zeichen))){
+                    Tier* tier=nullptr;
+                    if(zeichen==1){
+                        tier=new Saeugetier(false,0,0,"",false,false,0,1);
+                        cout<<"neues Saeugetier ist geladen!"<<endl;
+                    } else if(zeichen==2){
+                        tier=new Vogel(false,0,0,"",false,false,0,2);
+                        cout<<"neue Vogel ist geladen!"<<endl;
+                    } else if(zeichen==3){
+                        tier=new Reptil(false,0,false,"",false,false,0,3);
+                        cout<<"neue Reptil ist geladen!"<<endl;
+                    } else {
+                        break;
+                    }
+                    tier->deserialize(eingabe);
+                    Tierliste.push_back(tier);
+                }
+                eingabe.close();
+                cout<<"Datei erfolgreich geladen!"<<endl;
+                break;
+                }
 
                 }
-            }
+            \
 
 
-        }
         case 5:
         {
             ofstream testdatei;
             testdatei.open("testdatei.txt",ios::out|ios::binary);
-            Tier* tier= new Reptil(false,768,100,"Test",false,true);
+            Tier* tier= new Reptil(false,72,false,"Test",false,true,10,3);
             tier->serialize(testdatei);
             cout<<"Testdatei erfolgreich erstellt!"<<endl;
+            testdatei.close();
         }
         case 6:{
+
 
             break;
         }

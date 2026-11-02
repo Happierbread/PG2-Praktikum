@@ -2,12 +2,11 @@
 #include <iostream>
 using namespace std;
 
-Saeugetier::Saeugetier(bool rudelTier, int tragzeit, double durschnittsgewicht, const string &bezeichung, bool gefaehrdet, bool raubtier) : Tier(bezeichung, gefaehrdet, raubtier),
+Saeugetier::Saeugetier(bool rudelTier, int tragzeit, double durschnittsgewicht, const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen) : Tier(bezeichung, gefaehrdet, raubtier, anzahl, zeichen),
     m_rudelTier(rudelTier),
     m_tragzeit(tragzeit),
     m_durschnittsgewicht(durschnittsgewicht)
 {}
-
 
 void Saeugetier::TiereAnzeigen()
 {
@@ -37,11 +36,13 @@ void Saeugetier::serialize(ofstream&ausgabe)
 
 void Saeugetier::deserialize(ifstream& eingabe)
 {
-    Tier::serialize(eingabe);
+    Tier::deserialize(eingabe);
     eingabe.read((char*)&m_rudelTier, sizeof(m_rudelTier));
     eingabe.read((char*)&m_tragzeit, sizeof(m_tragzeit));
     eingabe.read((char*)&m_durschnittsgewicht, sizeof(m_durschnittsgewicht));
     eingabe.close();
 
 }
+
+
 

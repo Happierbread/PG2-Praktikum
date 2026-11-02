@@ -13,16 +13,18 @@ private:
     bool m_raubtier;
     int m_anzahl=0;
 protected:
-    virtual int zeichen;
+    int zeichen;
 
 
 public:
-    Tier(const string &bezeichung, bool gefaehrdet, bool raubtier);
+    Tier(const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen);
     virtual void TiereAnzeigen();
-    virtual ~Tier()=default;
+    virtual ~Tier();
     virtual void serialize(ofstream& ausgabe)=0;
     virtual void deserialize(ifstream& eingabe)=0;
     int getanzahl() const;
+    int getZeichen() const;
+    void setZeichen(int newZeichen);
 };
 
 #endif // TIER_H

@@ -2,11 +2,12 @@
 #include <iostream>
 using namespace std;
 
-Vogel::Vogel(bool zugvogel, double flugreichweite, double fluegelspannweite, const string &bezeichung, bool gefaehrdet, bool raubtier) : Tier(bezeichung, gefaehrdet, raubtier),
+Vogel::Vogel(bool zugvogel, double flugreichweite, double fluegelspannweite, const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen) : Tier(bezeichung, gefaehrdet, raubtier, anzahl, zeichen),
     m_zugvogel(zugvogel),
     m_flugreichweite(flugreichweite),
     m_fluegelspannweite(fluegelspannweite)
 {}
+
 
 void Vogel::TiereAnzeigen()
 {
@@ -28,12 +29,17 @@ void Vogel::serialize(ofstream& ausgabe)
     ausgabe.write((char*)&m_fluegelspannweite, sizeof(m_fluegelspannweite));
     ausgabe.write((char*)&m_flugreichweite, sizeof(m_flugreichweite));
     ausgabe.write((char*)&m_zugvogel, sizeof(m_zugvogel));
-    ausgabe.close();
+
 }
 
 
 void Vogel::deserialize(ifstream&eingabe){
 
+    Tier::deserialize(eingabe);
+    eingabe.read((char*)&m_fluegelspannweite, sizeof(m_fluegelspannweite));
+    eingabe.read((char*)&m_flugreichweite, sizeof(m_flugreichweite));
+    eingabe.read((char*)&m_zugvogel, sizeof(m_zugvogel));
 }
+
 
 

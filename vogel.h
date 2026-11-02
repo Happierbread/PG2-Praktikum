@@ -6,7 +6,7 @@
 class Vogel : public Tier
 {
 public:
-    Vogel(bool zugvogel, double flugreichweite, double fluegelspannweite, const string &bezeichung, bool gefaehrdet, bool raubtier);
+    Vogel(bool zugvogel, double flugreichweite, double fluegelspannweite, const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen);
     void TiereAnzeigen();
     void serialize(ofstream& ausgabe);
     void deserialize(ifstream& eingabe);
