@@ -31,7 +31,8 @@ void Reptil::TiereAnzeigen()
 void Reptil::serialize(ofstream& ausgabe)
 {
     Tier::serialize(ausgabe);
-    ausgabe.write((char*)&m_optimaleTemperatur, sizeof(m_optimaleTemperatur));
+
+    ausgabe.write((char*)&m_optimaleTemperatur,sizeof(m_optimaleTemperatur));
     ausgabe.write((char*)&m_giftig, sizeof(m_giftig));
     ausgabe.write((char*)&m_wechselwarm, sizeof(m_wechselwarm));
 
@@ -42,8 +43,8 @@ void Reptil::serialize(ofstream& ausgabe)
 void Reptil::deserialize(ifstream&eingabe)
 {
     Tier::deserialize(eingabe);
+    eingabe.read((char*)&m_optimaleTemperatur,sizeof(m_optimaleTemperatur));
     eingabe.read((char*)&m_giftig, sizeof(m_giftig));
-    eingabe.read((char*)&m_optimaleTemperatur, sizeof(m_optimaleTemperatur));
     eingabe.read((char*)&m_wechselwarm, sizeof(m_wechselwarm));
 
 }

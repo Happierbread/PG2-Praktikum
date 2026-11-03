@@ -8,7 +8,7 @@ using namespace std;
 class Tier
 {
 private:
-    string m_bezeichung;
+    string m_bezeichnung;
     bool m_gefaehrdet;
     bool m_raubtier;
     int m_anzahl=0;
@@ -17,13 +17,11 @@ protected:
 
 
 public:
-    Tier(const string &bezeichung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen);
+    Tier(const string &bezeichnung, bool gefaehrdet, bool raubtier, int anzahl, int zeichen);
     virtual void TiereAnzeigen();
     virtual ~Tier();
     virtual void serialize(ofstream& ausgabe)=0;
     virtual void deserialize(ifstream& eingabe)=0;
-    int getanzahl() const;
-    int getZeichen() const;
     void setZeichen(int newZeichen);
 };
 

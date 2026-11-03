@@ -9,15 +9,15 @@ using namespace std;
 int main()
 {
     bool end=false;
-    string m_bezeichung;
-    bool m_gefaehrdet,m_raubtier;
-    int m_anzahl,m_zeichen;
+    string s_bezeichung;
+    bool s_gefaehrdet,s_raubtier;
+    int s_anzahl,s_zeichen;
 
     vector<Tier*> Tierliste;
 
     do{
 
-        int menu=0;
+        int menuNummer=0;
         cout<<"1.Tier anlegen"<<endl;
         cout<<"2.Alle Tiere anzeigen"<<endl;
         cout<<"3.Binaer speichern"<<endl;
@@ -25,170 +25,172 @@ int main()
         cout<<"5.Binaere Testdatei erzeugen"<<endl;
         cout<<"6.Beenden"<<endl;
         cout<<"Waehlen sie eine Nummer (1-6)"<<endl;
-        cin>>menu;
-        switch(menu){
+        cin>>menuNummer;
+        switch(menuNummer){
         case 1:{
 
-            int animalnummer=0;
+            int animaltype=0;
             cout<<"Welches Tier wollen Sie erstellen?"<<endl;
             cout<<"1.Sauegietier "<<endl;
             cout<<"2.Vogel "<<endl;
             cout<<"3.Reptil"<<endl;
-            cin>>animalnummer;
-            bool gefaehrdet=false;
-            int rb,gf;
+            cin>>animaltype;
+            bool gefaehrdetValidierung=false;
+            int raubtierWaehler,gefaehrdetWaehler;
+
+
             cout<<"Bezeichnung fuer das Tier: "<<endl;
-            cin>>m_bezeichung;
+            cin>>s_bezeichung;
             cout<<"Anzahl der Tiere: "<<endl;
-            cin>>m_anzahl;
+            cin>>s_anzahl;
             do{
-                cout<<"gefaehrdet?"<<endl;
+                cout<<"Gefaehrdet?"<<endl;
                 cout<<"1. ja"<<endl;
                 cout<<"2. nein"<<endl;
-                cin>>gf;
-                if(gf==1){
-                    m_gefaehrdet=true;
-                    gefaehrdet=true;
+                cin>>gefaehrdetWaehler;
+                if(gefaehrdetWaehler==1){
+                    s_gefaehrdet=true;
+                    gefaehrdetValidierung=true;
                 }
-                else if(gf==2){
-                    m_gefaehrdet= false;
-                    gefaehrdet=true;
+                else if(gefaehrdetWaehler==2){
+                    s_gefaehrdet= false;
+                    gefaehrdetValidierung=true;
                 } else{
                     cout<<"Waehlen sie ein passendes Nummer!"<<endl;
                 }
-            } while(gefaehrdet==false);
+            } while(!gefaehrdetValidierung);
 
             cout<<"raubtier?"<<endl;
             cout<<"1. ja"<<endl;
             cout<<"2. nein"<<endl;
-            cin>>rb;
-            if(rb==1){
-                m_raubtier=true;
+            cin>>raubtierWaehler;
+            if(raubtierWaehler==1){
+                s_raubtier=true;
             }
-            else if(rb==2){
-                m_raubtier= false;
+            else if(raubtierWaehler==2){
+                s_raubtier= false;
             } else{
                 cout<<"Waehlen sie ein passendes Nummer!"<<endl;
             }
 
 
-            switch(animalnummer){
+            switch(animaltype){
             case 1:{
-                m_zeichen=1;
-                bool m_rudelTier;
-                int m_tragzeit;
-                double m_durchschnittsgewicht;
+                s_zeichen=1;
+                bool s_rudelTier;
+                int s_tragzeit;
+                double s_durchschnittsgewicht;
 
-                int wahl;
-                bool rudeltier=false;
+                int rudeltierWahl;
+                bool rudeltierValidierung=false;
                 do{
                     cout<<"Ist es ein Rudeltier?"<<endl;
                     cout<<"1. ja"<<endl;
                     cout<<"2. nein"<<endl;
-                    cin>>wahl;
-                    if(wahl==1){
-                        m_rudelTier=true;
-                        rudeltier=true;
+                    cin>>rudeltierWahl;
+                    if(rudeltierWahl==1){
+                        s_rudelTier=true;
+                        rudeltierValidierung=true;
                     }
-                    else if(wahl==2){
-                        m_rudelTier=false;
-                        rudeltier=true;
+                    else if(rudeltierWahl==2){
+                        s_rudelTier=false;
+                        rudeltierValidierung=true;
                     } else{
                         cout<<"Waehlen sie ein passendes Nummer!"<<endl;
                     }
-                } while(rudeltier==false);
+                } while(!rudeltierValidierung);
                 cout<<"wie viele Tragzeit? (in Wochen) "<<endl;
-                cin>>m_tragzeit;
+                cin>>s_tragzeit;
                 cout<<"wie viel ist der Gewicht durchschnittlich? (in kg)"<<endl;
-                cin>>m_durchschnittsgewicht;
+                cin>>s_durchschnittsgewicht;
 
 
-                Tier* tier= new Saeugetier(m_rudelTier,m_tragzeit,m_durchschnittsgewicht,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
+                Tier* tier= new Saeugetier(s_rudelTier,s_tragzeit,s_durchschnittsgewicht,s_bezeichung,s_gefaehrdet,s_raubtier,s_anzahl,s_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
 
             }
             case 2:{
-                m_zeichen=2;
-                bool m_zugvogel;
-                double m_flugreichweite,m_fluegelspannweite;
+                s_zeichen=2;
+                bool s_zugvogel;
+                double s_flugreichweite,s_fluegelspannweite;
 
-                int wahl;
-                bool zugvogel=false;
+                int zugvogelAusWahl;
+                bool zugvogelValidierung=false;
                 do{
                     cout<<"Ist es ein Zugvogel?"<<endl;
                     cout<<"1. ja"<<endl;
                     cout<<"2. nein"<<endl;
-                    cin>>wahl;
-                    if(wahl==1){
-                        m_zugvogel=true;
-                        zugvogel=true;
+                    cin>>zugvogelAusWahl;
+                    if(zugvogelAusWahl==1){
+                        s_zugvogel=true;
+                        zugvogelValidierung=true;
                     }
-                    else if(wahl==2){
-                        m_zugvogel= false;
-                        zugvogel=true;
+                    else if(zugvogelAusWahl==2){
+                        s_zugvogel= false;
+                        zugvogelValidierung=true;
                     } else{
                         cout<<"Waehlen sie ein passendes Nummer!"<<endl;
                     }
-                } while(zugvogel==false);
+                } while(!zugvogelValidierung);
                 cout<<"wie viele Flugreichweite? (in kilometern)"<<endl;
-                cin>>m_flugreichweite;
+                cin>>s_flugreichweite;
                 cout<<"wie viel Fluegelspannweite? (in metern) "<<endl;
-                cin>>m_fluegelspannweite;
+                cin>>s_fluegelspannweite;
 
 
-                Tier* tier=new Vogel(m_zugvogel,m_flugreichweite,m_fluegelspannweite,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
+                Tier* tier=new Vogel(s_zugvogel,s_flugreichweite,s_fluegelspannweite,s_bezeichung,s_gefaehrdet,s_raubtier,s_anzahl,s_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
 
             }
             case 3:{
-                m_zeichen=3;
-                bool m_giftig,m_wechselwarm;
-                double m_optimaleTemperatur;
+                s_zeichen=3;
+                bool s_giftig,s_wechselwarm;
+                double s_optimaleTemperatur;
 
 
-                int wahl1,wahl2;
-                bool giftig=false;
-                bool wechselwarm=false;
+                int giftigAuswahl,wechselwarmAuswahl;
+                bool giftigValidierung=false;
+                bool wechselwarmValidierung=false;
                 do{
                     cout<<"Ist es giftig?"<<endl;
                     cout<<"1. ja"<<endl;
                     cout<<"2. nein"<<endl;
-                    cin>>wahl1;
-                    if(wahl1==1){
-                        m_giftig=true;
-                        giftig=true;
+                    cin>>giftigAuswahl;
+                    if(giftigAuswahl==1){
+                        s_giftig=true;
+                        giftigValidierung=true;
                     }
-                    else if(wahl1==2){
-                        m_giftig= false;
-                        giftig=true;
+                    else if(giftigAuswahl==2){
+                        s_giftig= false;
+                        giftigValidierung=true;
                     } else{
                         cout<<"Waehlen sie ein passendes Nummer!"<<endl;
                     }
-                } while(giftig==false);
+                } while(!giftigValidierung);
 
                 do{
                     cout<<"Wechselwarmestier?"<<endl;
                     cout<<"1. ja"<<endl;
                     cout<<"2. nein"<<endl;
-                    cin>>wahl2;
-                    if(wahl2==1){
-                        m_wechselwarm=true;
-                        wechselwarm=true;
+                    cin>>wechselwarmAuswahl;
+                    if(wechselwarmAuswahl==1){
+                        s_wechselwarm=true;
+                        wechselwarmValidierung=true;
                     }
-                    else if(wahl2==2){
-                        m_wechselwarm= false;
-                        wechselwarm=true;
+                    else if(wechselwarmAuswahl==2){
+                        s_wechselwarm= false;
+                        wechselwarmValidierung=true;
                     } else{
                         cout<<"Waehlen sie ein passendes Nummer!"<<endl;
                     }
-                } while(wechselwarm==false);
+                } while(!wechselwarmValidierung);
                 cout<<"wie viel ist die Optimaletemperatur? (in Celcius) "<<endl;
-                cin>>m_optimaleTemperatur;
-                Tier* tier= new Reptil(m_giftig,m_optimaleTemperatur,m_wechselwarm,m_bezeichung,m_gefaehrdet,m_raubtier,m_anzahl,m_zeichen);
+                cin>>s_optimaleTemperatur;
+                Tier* tier= new Reptil(s_giftig,s_optimaleTemperatur,s_wechselwarm,s_bezeichung,s_gefaehrdet,s_raubtier,s_anzahl,s_zeichen);
                 Tierliste.push_back(tier);
                 cout<<"Tier erfolgreich hinzugefeugt!"<<endl;
                 break;
@@ -278,14 +280,18 @@ int main()
         {
             ofstream testdatei;
             testdatei.open("testdatei.txt",ios::out|ios::binary);
-            Tier* tier= new Reptil(false,72,false,"Test",false,true,10,3);
+            Tier* tier= new Reptil(false,20,false,"Test",false,true,10,3);
             tier->serialize(testdatei);
             cout<<"Testdatei erfolgreich erstellt!"<<endl;
             testdatei.close();
+            break;
         }
         case 6:{
-
-
+            for(auto a : Tierliste){
+                delete a;
+            }
+            Tierliste.clear();
+            end=true;
             break;
         }
         default:{
@@ -295,5 +301,5 @@ int main()
         }
 
 
-    }while(end==false);
+    }while(!end);
 }
