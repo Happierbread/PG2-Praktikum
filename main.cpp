@@ -36,6 +36,7 @@ int main()
             cout<<"3.Reptil"<<endl;
             cin>>animaltype;
             bool gefaehrdetValidierung=false;
+            bool raubtierValidierung=false;
             int raubtierWaehler,gefaehrdetWaehler;
 
 
@@ -60,19 +61,22 @@ int main()
                 }
             } while(!gefaehrdetValidierung);
 
+            do{
             cout<<"raubtier?"<<endl;
             cout<<"1. ja"<<endl;
             cout<<"2. nein"<<endl;
             cin>>raubtierWaehler;
             if(raubtierWaehler==1){
                 s_raubtier=true;
+                raubtierValidierung=true;
             }
             else if(raubtierWaehler==2){
                 s_raubtier= false;
+                raubtierValidierung=true;
             } else{
                 cout<<"Waehlen sie ein passendes Nummer!"<<endl;
             }
-
+            }while(!raubtierValidierung);
 
             switch(animaltype){
             case 1:{
@@ -221,6 +225,7 @@ int main()
 
             if(Tierliste.empty()){
                 cout<<"Es ist leer"<<endl;
+                break;
             } else{
                 string dateiname;
                 cout<<"Wie wird die Datei genannt werden? "<<endl;
@@ -254,13 +259,13 @@ int main()
                     Tier* tier=nullptr;
                     if(zeichen==1){
                         tier=new Saeugetier(false,0,0,"",false,false,0,1);
-                        cout<<"neues Saeugetier ist geladen!"<<endl;
+                        cout<<"Neues Saeugetier ist geladen!"<<endl;
                     } else if(zeichen==2){
                         tier=new Vogel(false,0,0,"",false,false,0,2);
-                        cout<<"neue Vogel ist geladen!"<<endl;
+                        cout<<"Neue Vogel ist geladen!"<<endl;
                     } else if(zeichen==3){
                         tier=new Reptil(false,0,false,"",false,false,0,3);
-                        cout<<"neue Reptil ist geladen!"<<endl;
+                        cout<<"Neue Reptil ist geladen!"<<endl;
                     } else {
                         break;
                     }
@@ -280,8 +285,8 @@ int main()
         {
             ofstream testdatei;
             testdatei.open("testdatei.txt",ios::out|ios::binary);
-            Tier* tier= new Reptil(false,20,false,"Test",false,true,10,3);
-            tier->serialize(testdatei);
+            Reptil reptile(false,20,false,"Test",false,true,10,3);
+            reptile.serialize(testdatei);
             cout<<"Testdatei erfolgreich erstellt!"<<endl;
             testdatei.close();
             break;
